@@ -10,15 +10,7 @@ function ask_reboot () {
     navigator.engmodeExtension.startUniversalCommand("reboot", true);
 }
 
-let enabled = JSON.parse(window.localStorage.getItem('enabled') || true);
-
-const enable_second_sim = 'setprop persist.radio.multisim.config dsds';
-const disable_second_sim = 'setprop persist.radio.multisim.config none';
-
-const set_net_types_1_sim = 'setprop persist.moz.ril.0.network_types gsm,wcdma,lte';
-const set_net_types_2_sim = 'setprop persist.moz.ril.1.network_types gsm,wcdma,lte';
-
-const enable_cmd = enable_second_sim + ' && ' + set_net_types_1_sim + ' && ' + set_net_types_2_sim;
+let enabled = navigator.engmodeExtension.getPropertyValue("persist.radio.multisim.config") == "dsds";
 
 const main = {
   oncreate: () => {
@@ -37,13 +29,14 @@ const main = {
       m("button", {class: "kui-btn", id: "toggle",
           onclick: () => {
             if(!enabled) {
-              navigator.engmodeExtension.startUniversalCommand(enable_cmd, true);
+              navigator.engmodeExtension.setPropertyValue("persist.radio.multisim.config", "dsds");
+              navigator.engmodeExtension.setPropertyValue("persist.moz.ril.0.network_types", "gsm,wcdma,lte");
+              navigator.engmodeExtension.setPropertyValue("persist.moz.ril.1.network_types", "gsm,wcdma,lte");
               enabled = true;
             } else {
-              navigator.engmodeExtension.startUniversalCommand(disable_second_sim, true);
+              navigator.engmodeExtension.setPropertyValue("persist.radio.multisim.config", "none");
               enabled = false;
             }
-            window.localStorage.setItem('enabled', JSON.stringify(enabled));
             ask_reboot();
           }
         },
