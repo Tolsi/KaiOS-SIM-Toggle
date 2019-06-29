@@ -1,4 +1,4 @@
-# KaiOS-SIM-toggle
+# KaiOS-SIM-Toggle
 This small application that allows you to turn on and off the second SIM card on your phone without using adb.
 
 You can download ZIP app in the Releases section.
