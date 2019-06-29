@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "name": "second-sim-toggler",
-  "description": "App for toggling second sim card",
+  "name": "SIM Toggle",
+  "description": "App for toggling second SIM card",
   "launch_path": "/index.html",
   "type": "certified",
   "installs_allowed_from": ["*"],
@@ -14,11 +14,9 @@
   "developer": {
     "name": "tolsi"
   },
-  "origin": "app://sim-toggler.tolsi.ru",
+  "origin": "app://sim-toggle.tolsi.ru",
   "permissions": {
-    "engmode-extension": {},
-    "power":{},
-    "webapps-manage":{}
+    "engmode-extension": {}
   },
   "theme_color": "#ff5500",
   "cursor": "false"

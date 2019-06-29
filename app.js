@@ -6,11 +6,11 @@ function sleep (time) {
 }
 
 function ask_reboot () {
-  if(confirm('Value was setted! Do you want to reboot now to apply it?'))
+  if(confirm('Setting was saved! Do you want to reboot to apply it now?'))
     navigator.engmodeExtension.startUniversalCommand("reboot", true);
 }
 
-let enabled = JSON.parse(window.localStorage.getItem('enabled'));;
+let enabled = JSON.parse(window.localStorage.getItem('enabled') || true);
 
 const enable_second_sim = 'setprop persist.radio.multisim.config dsds';
 const disable_second_sim = 'setprop persist.radio.multisim.config none';
@@ -25,12 +25,16 @@ const main = {
     document.querySelector("button").focus();
   },
   view: () =>
-    m("main", [
-      m("h1", "second-sim-control"),
-      m("h3", "by tolsi"),
-      m("hr"),
-      m("button",
-        {
+    m("div", {class: "kui-app"}, [
+      m("div", {class: "kui-header", id: "header"}, [
+        m("h2", {class: "kui-h2"}, "Second SIM toggle"),
+      ]),
+      m("br"),
+      m("div", {class: "kui-toast", id: "status"}, [
+        m("p", {class: "kui-pri"}, "SIM 2 is " + ( enabled ? "enabled" : "disabled" )),
+        m("div", {class: "kui-toast-shadow"})
+      ]),
+      m("button", {class: "kui-btn", id: "toggle",
           onclick: () => {
             if(!enabled) {
               navigator.engmodeExtension.startUniversalCommand(enable_cmd, true);
@@ -43,8 +47,12 @@ const main = {
             ask_reboot();
           }
         },
-      (enabled == true ? "Disable" : "Enable") + " SIM"),
-      m("h3", "<<< SIM " + ( enabled ? "enabled" : "disabled" ) + " >>>")
+      (enabled == true ? "Disable" : "Enable") + " SIM 2"),
+      m("br"),
+      m("div", {class: "kui-sec",id: "footer"}, [
+        m("text", "2019, by "),
+        m("a", {href:"http://tolsi.ru"}, "tolsi.ru")
+      ])
     ])
 };
 

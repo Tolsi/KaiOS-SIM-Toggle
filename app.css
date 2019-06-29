@@ -1,0 +1,15 @@
+body {
+    margin: 0px auto;
+}
+
+#toggle {
+  margin-top: 20px;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  height: 2rem; /* Footer height */
+  text-align: right;
+  width: 97%;
+}
